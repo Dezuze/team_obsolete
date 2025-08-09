@@ -1,64 +1,270 @@
 .button-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 120px);
-  max-height: calc(100vh - 120px);
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
+  pointer-events: none;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .futuristic-button {
   position: relative;
-  padding: 20px 40px;
-  font-size: 18px;
-  color: #fff;
-  background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-  border: none;
-  border-radius: 30px;
+  padding: 12px 24px;
+  font-size: 15px;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
-
-.futuristic-button::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #00d2ff, #3a7bd5, #00d2ff);
-  background-size: 400% 400%;
-  animation: borderGlow 3s ease infinite;
-  z-index: -1;
-  border-radius: 32px;
-}
-
-@keyframes borderGlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  pointer-events: auto;
+  z-index: 1000;
+  font-weight: 500;
+  letter-spacing: 0.3px;
 }
 
 .futuristic-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background: #f8fafc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  transform: translateY(-1px);
+}
+
+@keyframes borderGlow {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(1.2) hue-rotate(0deg);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1.4) hue-rotate(180deg);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(1.2) hue-rotate(360deg);
+  }
+}
+
+@keyframes buttonShine {
+  0% {
+    background: linear-gradient(45deg, #00ffea, #4c00ff);
+    box-shadow: 0 8px 25px rgba(76, 0, 255, 0.3);
+  }
+  50% {
+    background: linear-gradient(45deg, #4c00ff, #ff00d4);
+    box-shadow: 0 8px 30px rgba(255, 0, 212, 0.4);
+  }
+  100% {
+    background: linear-gradient(45deg, #00ffea, #4c00ff);
+    box-shadow: 0 8px 25px rgba(76, 0, 255, 0.3);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 255, 234, 0.1),
+      rgba(76, 0, 255, 0.05)
+    );
+  }
+  50% {
+    background: radial-gradient(
+      circle at center,
+      rgba(76, 0, 255, 0.1),
+      rgba(255, 0, 212, 0.05)
+    );
+  }
+  100% {
+    background: radial-gradient(
+      circle at center,
+      rgba(255, 0, 212, 0.1),
+      rgba(0, 255, 234, 0.05)
+    );
+  }
+}
+
+.futuristic-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.2);
+  background: #2980b9;
+}
+
+.futuristic-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 10px rgba(52, 152, 219, 0.1);
 }
 
 .futuristic-button:disabled {
-  opacity: 0.7;
+  opacity: 0.6;
   cursor: not-allowed;
+  background: #95a5a6;
+  box-shadow: none;
 }
 
 .button-text {
   position: relative;
   z-index: 1;
+}
+
+.glitch {
+  animation: buttonGlitch 0.3s infinite;
+}
+
+.glitch .button-text {
+  animation: textGlitch 0.2s infinite;
+  position: relative;
+}
+
+.glitch .button-text::before,
+.glitch .button-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch .button-text::before {
+  left: 2px;
+  text-shadow: -1px 0 red;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch .button-text::after {
+  left: -2px;
+  text-shadow: 1px 0 blue;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes buttonGlitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes textGlitch {
+  0% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(20px, 900px, 89px, 0);
+  }
+  20% {
+    clip: rect(89px, 900px, 129px, 0);
+  }
+  40% {
+    clip: rect(129px, 900px, 20px, 0);
+  }
+  60% {
+    clip: rect(20px, 900px, 89px, 0);
+  }
+  80% {
+    clip: rect(89px, 900px, 129px, 0);
+  }
+  100% {
+    clip: rect(129px, 900px, 20px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(89px, 900px, 129px, 0);
+  }
+  20% {
+    clip: rect(129px, 900px, 20px, 0);
+  }
+  40% {
+    clip: rect(20px, 900px, 89px, 0);
+  }
+  60% {
+    clip: rect(89px, 900px, 129px, 0);
+  }
+  80% {
+    clip: rect(129px, 900px, 20px, 0);
+  }
+  100% {
+    clip: rect(20px, 900px, 89px, 0);
+  }
+}
+
+.glitch::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  animation: glitchOverlay 0.6s infinite;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+@keyframes glitchOverlay {
+  0% {
+    transform: translate(2px, 2px);
+    opacity: 0.75;
+  }
+  25% {
+    transform: translate(-2px, -2px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-2px, 2px);
+    opacity: 0.75;
+  }
+  75% {
+    transform: translate(2px, -2px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(2px, 2px);
+    opacity: 0.75;
+  }
 }
 
 .button-glow {
@@ -69,51 +275,33 @@
   height: 200%;
   background: radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0) 70%
+    rgba(0, 255, 234, 0.8) 0%,
+    rgba(76, 0, 255, 0.4) 30%,
+    rgba(255, 0, 212, 0) 70%
   );
   opacity: 0;
   transition: opacity 0.3s ease;
+  mix-blend-mode: screen;
 }
 
 .futuristic-button:hover .button-glow {
-  opacity: 0.5;
-}
-
-.event-log {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 15px;
-  max-width: 300px;
-  width: 90%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.event-log h4 {
-  color: white;
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   opacity: 0.8;
+  animation: glowPulse 2s infinite;
 }
 
-.event-item {
-  margin: 8px 0;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 8px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+@keyframes glowPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
 }
 
 /* Calculator Mode Styles */
@@ -125,46 +313,161 @@
   padding: 20px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 2px 10px rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
 .calculator-ui {
-  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(15, 23, 42, 0.95);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 320px;
+  z-index: 1001;
+  pointer-events: auto;
+  animation: calculatorAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calculator-controls {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.calc-control-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.calc-control-button.next-event {
+  background: linear-gradient(45deg, #3a7bd5, #00d2ff);
+}
+
+.calc-control-button.calculate {
+  background: linear-gradient(45deg, #11998e, #38ef7d);
+}
+
+.calc-control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.calc-button {
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.calc-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.calc-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.calc-button-placeholder {
+  background: transparent;
 }
 
 .calculator-display {
-  width: 100%;
-  background: rgba(52, 73, 94, 0.8);
-  margin-bottom: 10px;
-  border-radius: 15px;
-  padding: 15px;
-  color: white;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  min-height: 60px;
   display: flex;
   flex-direction: column;
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+  gap: 10px;
 }
 
-.calculation-value {
-  font-size: 32px;
+.calculator-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
   text-align: right;
-  margin-bottom: 5px;
-  font-family: 'Monaco', monospace;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  font-family: "Courier New", monospace;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .calculation-steps {
   font-size: 14px;
-  color: #95a5a6;
+  color: rgba(255, 255, 255, 0.7);
   text-align: right;
+  min-height: 20px;
   font-style: italic;
-  opacity: 0.8;
+}
+
+@keyframes calculatorAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.calculator-display {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.calculator-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 210, 255, 0.3);
+  margin-bottom: 0.5rem;
+  font-family: "Monaco", monospace;
+}
+
+.calculation-steps {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  min-height: 1.5em;
+  font-style: italic;
 }
 
 .calculator-buttons {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  border-radius: 15px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
@@ -247,7 +550,13 @@
 .glitch::before {
   left: 2px;
   text-shadow: -2px 0 #ff00ff;
-  background: linear-gradient(45deg, transparent 3%, #ff00ff 3%, #ff00ff 5%, transparent 5%);
+  background: linear-gradient(
+    45deg,
+    transparent 3%,
+    #ff00ff 3%,
+    #ff00ff 5%,
+    transparent 5%
+  );
   animation: glitch-anim-1 2s infinite linear alternate-reverse;
   opacity: 0.75;
 }
@@ -255,27 +564,55 @@
 .glitch::after {
   left: -2px;
   text-shadow: 2px 0 #00ffff;
-  background: linear-gradient(45deg, transparent 3%, #00ffff 3%, #00ffff 5%, transparent 5%);
+  background: linear-gradient(
+    45deg,
+    transparent 3%,
+    #00ffff 3%,
+    #00ffff 5%,
+    transparent 5%
+  );
   animation: glitch-anim-2 2s infinite linear alternate-reverse;
   opacity: 0.75;
 }
 
 @keyframes glitch-skew {
-  0% { transform: skew(0deg); }
-  10% { transform: skew(2deg); }
-  20% { transform: skew(-3deg); }
-  30% { transform: skew(1deg); }
-  40% { transform: skew(-2deg); }
-  50% { transform: skew(3deg); }
-  60% { transform: skew(-1deg); }
-  70% { transform: skew(2deg); }
-  80% { transform: skew(-2deg); }
-  90% { transform: skew(3deg); }
-  100% { transform: skew(-1deg); }
+  0% {
+    transform: skew(0deg);
+  }
+  10% {
+    transform: skew(2deg);
+  }
+  20% {
+    transform: skew(-3deg);
+  }
+  30% {
+    transform: skew(1deg);
+  }
+  40% {
+    transform: skew(-2deg);
+  }
+  50% {
+    transform: skew(3deg);
+  }
+  60% {
+    transform: skew(-1deg);
+  }
+  70% {
+    transform: skew(2deg);
+  }
+  80% {
+    transform: skew(-2deg);
+  }
+  90% {
+    transform: skew(3deg);
+  }
+  100% {
+    transform: skew(-1deg);
+  }
 }
 
 @keyframes glitch-anim-1 {
-  0% { 
+  0% {
     clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%);
     transform: translate(0);
   }
@@ -358,7 +695,52 @@
 
 /* Runaway Button */
 .runaway {
-  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  position: fixed !important;
+  transition: left 0.15s ease-out, top 0.15s ease-out;
+  will-change: left, top;
+  z-index: 9999;
+  cursor: pointer;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.runaway:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-5px, 5px) rotate(-2deg);
+  }
+  50% {
+    transform: translate(5px, -5px) rotate(2deg);
+  }
+  75% {
+    transform: translate(-3px, -3px) rotate(-1deg);
+  }
+}
+
+@keyframes fastShake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-4px, 2px);
+  }
+  50% {
+    transform: translate(4px, -2px);
+  }
+  75% {
+    transform: translate(-2px, -1px);
+  }
 }
 
 /* Active Effect */
@@ -367,7 +749,11 @@
 }
 
 @keyframes pulseGlow {
-  0% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
-  50% { box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4); }
-  100% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+  0%,
+  100% {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  50% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 }
