@@ -1,79 +1,152 @@
 .button-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-.animated-button {
+.futuristic-button {
   position: relative;
-  padding: 20px 40px;
+  padding: 15px 30px;
   font-size: 18px;
-  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(45deg, #4a90e2, #8e44ad);
   border: none;
-  border-radius: 15px;
+  border-radius: 25px;
   cursor: pointer;
   overflow: hidden;
-  min-width: 200px;
-  color: white;
   transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.animated-button.light {
-  background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
-  box-shadow: 0 10px 20px rgba(33, 147, 176, 0.3);
+.futuristic-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-.animated-button.dark {
-  background: linear-gradient(135deg, #4a00e0 0%, #8e2de2 100%);
-  box-shadow: 0 10px 20px rgba(78, 0, 224, 0.3);
-}
-
-.animated-button:hover:not(.running) {
-  transform: translateY(-3px) scale(1.05);
-}
-
-.animated-button.running {
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+.futuristic-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .button-text {
   position: relative;
   z-index: 1;
-  white-space: nowrap;
 }
 
 .button-glow {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, transparent 70%);
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.animated-button:hover .button-glow {
-  opacity: 0.2;
+.futuristic-button:hover .button-glow {
+  opacity: 0.5;
 }
 
-.score-display {
-  font-size: 1.2rem;
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-}
-
-.score-display.dark {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.score-display.light {
-  color: #2c3e50;
+.event-log {
+  margin-top: 20px;
+  padding: 15px;
   background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.event-item {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Calculator Mode Styles */
+.calculator-mode {
+  width: 240px;
+  height: 320px;
+  background: #2c3e50;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.calculator-ui {
+  width: 100%;
+  height: 100%;
+}
+
+.calculator-display {
+  width: 100%;
+  height: 60px;
+  background: #34495e;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  font-size: 24px;
+  color: white;
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.calc-button {
+  background: #3498db;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.calc-button:hover {
+  background: #2980b9;
+}
+
+/* Glitch Effect */
+.glitch {
+  animation: glitch 0.5s infinite;
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-5px, 5px);
+  }
+  40% {
+    transform: translate(-5px, -5px);
+  }
+  60% {
+    transform: translate(5px, 5px);
+  }
+  80% {
+    transform: translate(5px, -5px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Runaway Button */
+.runaway {
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
