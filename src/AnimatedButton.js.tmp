@@ -5,33 +5,47 @@ const AnimatedButton = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [eventHistory, setEventHistory] = useState([]);
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
-  const buttonRef = useRef(null);
-  const containerRef = useRef(null);
-
-  // Random events that will ONLY occur when button is clicked
   const [isCameraMode, setIsCameraMode] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
+  const [isGlitching, setIsGlitching] = useState(false);
+  const [stream, setStream] = useState(null);
+  
+  const buttonRef = useRef(null);
+  const containerRef = useRef(null);
+  const videoRef = useRef(null);
 
   const randomEvents = [
     {
       name: 'Glitch Effect',
       effect: 'glitch',
       duration: 2000,
-      message: '🔧 System glitch detected!',
+      message: '🔧 System glitch detected!'
     },
     {
       name: 'Runaway Button',
       effect: 'runaway',
       duration: 10000,
-      message: '🏃 Catch me if you can!',
+      message: '🏃 Catch me if you can!'
     },
     {
       name: 'Camera Mode',
       effect: 'camera',
       duration: 3000,
-      message: '📸 Say cheese!',
-    },
+      message: '📸 Say cheese!'
+    }
   ];
+
+  const startCamera = async () => {
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      setStream(mediaStream);
+      if (videoRef.current) {
+        videoRef.current.srcObject = mediaStream;
+      }
+    } catch (err) {
+      console.error('Error accessing camera:', err);
+    }
+  };
 
   const handleCameraClick = () => {
     setIsFlashing(true);
@@ -42,34 +56,38 @@ const AnimatedButton = () => {
     );
     shutterSound.play();
 
-    // Flash effect
+    // Flash effect and capture
     setTimeout(() => {
       setIsFlashing(false);
 
-      // Download monkey image
+      // Download the specified image
       const link = document.createElement('a');
-      link.href =
-        'https://raw.githubusercontent.com/user-attachments/assets/smiling-monkey.jpg';
-      link.download = 'smiling-monkey.jpg';
+      link.href = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrTUbJfO2EOaIJ-rvrbbRhsgHWWaly4QERLQ&s';
+      link.download = 'camera-image.jpg';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      // Reset camera mode after capture
+      // Stop the camera stream
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+
+      // Reset camera mode and transition to next event after 5 seconds
       setTimeout(() => {
         setIsCameraMode(false);
         setIsAnimating(false);
-      }, 1000);
+        // Trigger next random event after a short delay
+        setTimeout(() => {
+          handleClick();
+        }, 500);
+      }, 5000);
     }, 500);
   };
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (
-        isAnimating &&
-        buttonRef.current &&
-        !isCameraMode
-      ) {
+      if (isAnimating && buttonRef.current && !isCameraMode) {
         const button = buttonRef.current;
         const mouseX = e.clientX;
         const mouseY = e.clientY;
@@ -115,40 +133,40 @@ const AnimatedButton = () => {
     };
   }, [isAnimating, buttonPosition, isCameraMode]);
 
-  // This function ONLY triggers when button is clicked
+  // Handle click events
   const handleClick = () => {
     if (isAnimating) return;
 
     setIsAnimating(true);
 
-    // Select random event - ONLY happens on click
-    const randomEvent =
-      randomEvents[Math.floor(Math.random() * randomEvents.length)];
+    // Select random event
+    const randomEvent = randomEvents[Math.floor(Math.random() * randomEvents.length)];
 
-    // Log the event (only when clicked)
+    // Log the event
     setEventHistory((prev) => [
       ...prev,
       {
         event: randomEvent.name,
-        timestamp: new Date().toLocaleTimeString(),
-      },
+        timestamp: new Date().toLocaleTimeString()
+      }
     ]);
-
-    // Show event message immediately when clicked
-    alert(randomEvent.message);
 
     // Handle specific effects
     if (randomEvent.effect === 'camera') {
       setIsCameraMode(true);
+      startCamera();
     } else if (randomEvent.effect === 'runaway') {
-      // For runaway effect, the button will move away from cursor
-      // The useEffect will handle the mouse movement tracking
       setTimeout(() => {
         setIsAnimating(false);
-        setButtonPosition({ x: 0, y: 0 }); // Reset position after runaway ends
+        setButtonPosition({ x: 0, y: 0 });
+      }, randomEvent.duration);
+    } else if (randomEvent.effect === 'glitch') {
+      setIsGlitching(true);
+      setTimeout(() => {
+        setIsGlitching(false);
+        setIsAnimating(false);
       }, randomEvent.duration);
     } else {
-      // Apply visual effect for the duration
       setTimeout(() => {
         setIsAnimating(false);
       }, randomEvent.duration);
@@ -162,7 +180,7 @@ const AnimatedButton = () => {
           ref={buttonRef}
           className={`futuristic-button ${isAnimating ? 'active-effect' : ''} ${
             isCameraMode ? 'camera-mode' : ''
-          } ${isAnimating && !isCameraMode ? 'runaway' : ''}`}
+          } ${isAnimating && !isCameraMode ? 'runaway' : ''} ${isGlitching ? 'glitch' : ''}`}
           style={{
             transform: isAnimating && !isCameraMode
               ? `translate(${buttonPosition.x}px, ${buttonPosition.y}px)`
@@ -183,12 +201,21 @@ const AnimatedButton = () => {
 
       {isCameraMode && (
         <div className="camera-ui">
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          />
           <div className="camera-frame"></div>
           <div className={`camera-flash ${isFlashing ? 'flash' : ''}`}></div>
         </div>
       )}
 
-      {/* Show last few events (only from clicks) */}
       {eventHistory.length > 0 && (
         <div className="event-log">
           <h4>Recent Events (Click-Triggered Only):</h4>
