@@ -28,7 +28,7 @@ const BackwardsClock = ({ darkMode }) => {
   return (
     <div className={`backwards-clock ${darkMode ? 'dark' : ''}`}>
       <div className="clock-display">
-        <span className="clock-label">Time Until Tomorrow:</span>
+        <span className="clock-label">Backwards Clock:</span>
         <div className="clock-time">{time}</div>
       </div>
       <div className="clock-shadow"></div>

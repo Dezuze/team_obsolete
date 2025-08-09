@@ -37,6 +37,11 @@
   transform: translateY(-1px);
 }
 
+/* Button behind calculator UI */
+.futuristic-button.behind-ui {
+  z-index: 999;
+}
+
 @keyframes borderGlow {
   0% {
     background-position: 0% 50%;
@@ -316,7 +321,9 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 300px;
+  width: min(300px, 90vw);
+  max-height: 90vh;
+  overflow-y: auto;
   z-index: 1001;
   pointer-events: auto;
   animation: calculatorAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1);

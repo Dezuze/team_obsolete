@@ -11,7 +11,6 @@ const AnimatedButton = ({ darkMode }) => {
   const [isCalculator, setIsCalculator] = useState(false);
   const [calculatorValue, setCalculatorValue] = useState('');
   const [calculationSteps, setCalculationSteps] = useState('');
-  const [calculationDone, setCalculationDone] = useState(false);
 
   const buttonRef = useRef(null);
   const containerRef = useRef(null);
@@ -103,11 +102,9 @@ const AnimatedButton = ({ darkMode }) => {
           Math.floor(Math.random() * uselessExplanations.length)
         ];
       setCalculationSteps(explanation);
-      setCalculationDone(true); // Show Calculate button after calculation
     } else if (value === 'C') {
       setCalculatorValue('');
       setCalculationSteps('');
-      setCalculationDone(false); // Reset calculation done state
     } else {
       const newValue = value === '*' ? '×' : value === '/' ? '÷' : value;
       setCalculatorValue((prev) => prev + newValue);
@@ -294,7 +291,6 @@ const AnimatedButton = ({ darkMode }) => {
         setCalculationSteps(
           'Ready to calculate! Click Calculate when done! 🧮'
         );
-        setCalculationDone(false); // Reset calculation state
         setIsAnimating(false); // Allow user interaction
         break;
 
@@ -442,7 +438,6 @@ const AnimatedButton = ({ darkMode }) => {
             setIsCalculator(false);
             setCalculatorValue('');
             setCalculationSteps('');
-            setCalculationDone(false);
           }}
         >
           ×
@@ -584,13 +579,11 @@ const AnimatedButton = ({ darkMode }) => {
           </button>
         </div>
 
-        {calculationDone && (
-          <div className="calculator-actions">
-            <button className="calc-action-btn" onClick={handleRandomEvent}>
-              🎲 Next Event
-            </button>
-          </div>
-        )}
+        <div className="calculator-actions">
+          <button className="calc-action-btn" onClick={handleRandomEvent}>
+            🎲 Next Event
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -602,7 +595,7 @@ const AnimatedButton = ({ darkMode }) => {
           ref={buttonRef}
           className={`futuristic-button ${isAnimating ? 'active-effect' : ''} ${
             isAnimating && !isCalculator ? 'runaway' : ''
-          } ${isGlitching ? 'glitch' : ''}`}
+          } ${isGlitching ? 'glitch' : ''} ${isCalculator ? 'behind-ui' : ''}`}
           onClick={isCalculator ? undefined : handleRandomEvent}
           disabled={isAnimating && !isCalculator}
         >

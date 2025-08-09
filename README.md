@@ -74,6 +74,7 @@ npm run build
 ## Features (or Symptoms)
 
 ### 🧮 Calculator Mode
+
 - **Modern Interface**: Sleek calculator with iOS-style design
 - **Light/Dark Theme**: Automatically adapts to your app's theme
 - **Useless Results**: Generates hilariously wrong answers
@@ -81,18 +82,21 @@ npm run build
 - **Smart Button Logic**: Calculate button only appears after entering numbers
 
 ### 🏃‍♂️ Runaway Button
+
 - **Intelligent Evasion**: Button actively avoids your cursor
 - **Viewport Constrained**: Won't escape your screen
 - **Smooth Animations**: Powered by Anime.js
 - **8-Second Duration**: Just long enough to be frustrating
 
 ### 💥 Glitch Attack
+
 - **Destructive Effects**: Violent shaking, color distortion, and strobing
 - **Multiple Animations**: Simultaneous chaos for maximum impact
 - **5-Second Experience**: Brief but memorable
 - **No Auto-Trigger**: Only happens when you click (no random annoyance)
 
 ### 🎨 Additional Features
+
 - **Dark Mode Support**: Button adapts to your theme preference
 - **Smooth Transitions**: Professional animations throughout
 - **Clean Code**: ESLint compliant and well-documented
@@ -103,11 +107,13 @@ npm run build
 The button randomly selects one of three events on each click:
 
 1. **Calculator Mode** (33% chance)
+
    - Opens modern calculator interface
    - Generates humorous "calculations"
    - Manual exit required
 
 2. **Runaway Mode** (33% chance)
+
    - Button flees from cursor
    - Viewport-constrained movement
    - Auto-returns after 8 seconds
@@ -155,6 +161,7 @@ npm test
 ## Team Contributions
 
 **Wesly Philip Jacob**:
+
 - Button Behavior Specialist
 - Modern Calculator Designer
 - Glitch Effect Master
