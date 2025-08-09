@@ -16,10 +16,11 @@ function App() {
   };
 
   useEffect(() => {
-    const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
-    setDarkMode(prefersDark);
+    // Set light mode as default instead of system preference
+    // const prefersDark = window.matchMedia(
+    //   '(prefers-color-scheme: dark)'
+    // ).matches;
+    // setDarkMode(prefersDark);
   }, []);
 
   useEffect(() => {
