@@ -230,7 +230,10 @@ const AnimatedButton = () => {
           onClick={isCalculator ? undefined : handleRandomEvent}
           disabled={isAnimating && !isCalculator}
         >
-          <span className="button-text">
+          <span
+            className="button-text"
+            data-text={isAnimating && !isCalculator ? 'Event Active...' : 'Click Me'}
+          >
             {isAnimating && !isCalculator ? 'Event Active...' : 'Click Me'}
           </span>
           <div className="button-glow"></div>

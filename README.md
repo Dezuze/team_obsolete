@@ -1,102 +1,84 @@
-<img width="3188" height="1202" alt="frame (3)" src="https://github.com/user-attachments/assets/517ad8e9-ad22-457d-9538-a9e62d137cd7" />
+# A "NORMAL" BUTTON
 
-
-# [Project Name] 🎯
-
+*Just your everyday, totally normal, absolutely not suspicious button. Nothing to see here, move along...*
 
 ## Basic Details
-### Team Name: [Name]
-
+### Team Name: Team Obsolete
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Wesly - College of Engineering Poonjar
+- Philip - College of Engineering Poonjar
+- Jacob - College of Engineering Poonjar
 
 ### Project Description
-[2-3 lines about what your project does]
+A completely normal button that definitely won't run away from your cursor, transform into a calculator, or have an existential crisis. It's just a button. Really. Trust us.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+Buttons these days are too predictable. They just sit there, waiting to be clicked, doing exactly what they're told. Where's the excitement? Where's the mystery? Where's the borderline psychological warfare?
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+We've created a button with personality disorders, trust issues, and a tendency to glitch into alternate dimensions. It's not just a button, it's an experience - one that your therapist will hear all about.
 
 ## Technical Details
-### Technologies/Components Used
-For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
-
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+### Technologies Used
+- React (for giving buttons existential crises)
+- CSS (for making buttons pretty before they break)
+- JavaScript (for implementing chaos theory)
+- Your Sanity (as a testing framework)
 
 ### Implementation
-For Software:
 # Installation
-[commands]
+```bash
+# Clone this repository (if you dare)
+git clone https://github.com/your-username/a-normal-button.git
 
-# Run
-[commands]
+# Enter the danger zone
+cd a-normal-button
 
-### Project Documentation
-For Software:
+# Install dependencies (and questionable life choices)
+npm install
 
-# Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+# Start the chaos
+npm start
+```
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+# Usage Instructions
+1. Click the button
+2. Regret clicking the button
+3. Try to click it again
+4. Question reality
+5. Repeat steps 1-4
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+### Features (or Symptoms)
+- **Click Me Button**: A completely normal button that totally won't mess with your head
+- **Calculator Mode**: Because sometimes buttons get tired of being just buttons
+- **Glitch Effect**: Not a bug, definitely a feature
+- **Dark Mode**: For when the button is feeling a bit moody
+- **Event Log**: To keep track of all the perfectly normal things happening
+- **Running Away**: Exercise is important, even for buttons
 
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
-
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
-
-### Project Demo
-# Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
-
-# Additional Demos
-[Add any extra demo materials/links]
+### Known "Features"
+- Button may or may not listen to your clicks
+- Calculator might appear when you least expect it
+- Dark mode might be the button's decision, not yours
+- Your cursor's self-esteem might take a hit
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- **Wesly**: Button Behavior Specialist, Chaos Implementation Lead
+- **Philip**: Digital Mischief Architect, Calculator Mode Designer
+- **Jacob**: Glitch Effect Master, Dark Mode Psychologist
+
+## Project States
+1. **Normal State**: As rare as finding a unicorn
+2. **Calculator Mode**: When math anxiety meets UI design
+3. **Glitch State**: The button's way of saying "I'm having an existential crisis"
+4. **Runaway Mode**: The button's cardio routine
+
+## Disclaimer
+No buttons were harmed in the making of this project. They're just a bit different.
 
 ---
-Made with ❤️ at TinkerHub Useless Projects 
-
-![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
-![Static Badge](https://img.shields.io/badge/UselessProjects--25-25?link=https%3A%2F%2Fwww.tinkerhub.org%2Fevents%2FQ2Q1TQKX6Q%2FUseless%2520Projects)
+Made with questionable decisions by Team Obsolete at TinkerHub Useless Projects
 
 
 
