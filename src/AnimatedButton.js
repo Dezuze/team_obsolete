@@ -81,7 +81,7 @@ const AnimatedButton = ({ darkMode }) => {
       const uselessResult = generateUselessResult();
 
       // Add some fake "processing" delay for comedic effect
-      await new Promise(resolve => setTimeout(resolve, 800));
+      await new Promise((resolve) => setTimeout(resolve, 800));
 
       // Show the useless result
       setCalculatorValue(uselessResult);
@@ -98,7 +98,10 @@ const AnimatedButton = ({ darkMode }) => {
         'Powered by pure imagination ✨',
         'Results verified by professional coin flip',
       ];
-      const explanation = uselessExplanations[Math.floor(Math.random() * uselessExplanations.length)];
+      const explanation =
+        uselessExplanations[
+          Math.floor(Math.random() * uselessExplanations.length)
+        ];
       setCalculationSteps(explanation);
       setCalculationDone(true); // Show Calculate button after calculation
     } else if (value === 'C') {
@@ -110,88 +113,6 @@ const AnimatedButton = ({ darkMode }) => {
       setCalculatorValue((prev) => prev + newValue);
       setCalculationSteps('');
     }
-  };  const animateGlitch = () => {
-    const button = buttonRef.current;
-    if (!button) return;
-
-    // Create multiple glitch timelines for more chaotic effect
-    const mainTimeline = anime.timeline({
-      duration: 2000,
-      easing: 'steps(5)',
-    });
-
-    // Add rapid position shifts
-    mainTimeline.add({
-      targets: button,
-      keyframes: [
-        {
-          translateX: -5,
-          translateY: 2,
-          scale: 1.02,
-          filter: 'hue-rotate(45deg)',
-          duration: 100,
-        },
-        {
-          translateX: 5,
-          translateY: -2,
-          scale: 0.98,
-          filter: 'hue-rotate(-45deg)',
-          duration: 100,
-        },
-        {
-          translateX: -3,
-          translateY: -1,
-          scale: 1.01,
-          filter: 'hue-rotate(90deg)',
-          duration: 100,
-        },
-        {
-          translateX: 3,
-          translateY: 1,
-          scale: 0.99,
-          filter: 'hue-rotate(0deg)',
-          duration: 100,
-        },
-        {
-          translateX: 0,
-          translateY: 0,
-          scale: 1,
-          filter: 'hue-rotate(0deg)',
-          duration: 100,
-        },
-      ],
-      loop: 4,
-    });
-
-    // Add color distortion effects
-    anime({
-      targets: button,
-      keyframes: [
-        { textShadow: '2px 0 red, -2px 0 blue', duration: 200 },
-        { textShadow: '-2px 0 red, 2px 0 blue', duration: 200 },
-        { textShadow: 'none', duration: 200 },
-      ],
-      loop: true,
-      direction: 'alternate',
-      duration: 1000,
-    });
-
-    // Add opacity flicker
-    anime({
-      targets: button,
-      opacity: [
-        { value: 1, duration: 50 },
-        { value: 0.8, duration: 50 },
-        { value: 1, duration: 50 },
-        { value: 0.9, duration: 50 },
-        { value: 1, duration: 50 },
-      ],
-      loop: true,
-      easing: 'steps(1)',
-      duration: 500,
-    });
-
-    return mainTimeline.finished;
   };
 
   const animateDestructiveGlitch = () => {
@@ -259,22 +180,22 @@ const AnimatedButton = ({ darkMode }) => {
         {
           textShadow: '5px 0 #ff0000, -5px 0 #00ff00, 0 5px #0000ff',
           backgroundColor: '#ff00ff',
-          duration: 100
+          duration: 100,
         },
         {
           textShadow: '-8px 0 #ffff00, 8px 0 #ff00ff, 0 -8px #00ffff',
           backgroundColor: '#00ff00',
-          duration: 100
+          duration: 100,
         },
         {
           textShadow: '3px 3px #ff0000, -3px -3px #0000ff',
           backgroundColor: '#ff0000',
-          duration: 100
+          duration: 100,
         },
         {
           textShadow: 'none',
           backgroundColor: '',
-          duration: 100
+          duration: 100,
         },
       ],
       loop: true,
@@ -370,7 +291,9 @@ const AnimatedButton = ({ darkMode }) => {
         await animateCalculator();
         setIsCalculator(true);
         setCalculatorValue('');
-        setCalculationSteps('Ready to calculate! Click Calculate when done! 🧮');
+        setCalculationSteps(
+          'Ready to calculate! Click Calculate when done! 🧮'
+        );
         setCalculationDone(false); // Reset calculation state
         setIsAnimating(false); // Allow user interaction
         break;
@@ -449,7 +372,8 @@ const AnimatedButton = ({ darkMode }) => {
     const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
     // Detection radius based on viewport size
-    const detectionRadius = Math.min(window.innerWidth, window.innerHeight) * 0.15;
+    const detectionRadius =
+      Math.min(window.innerWidth, window.innerHeight) * 0.15;
 
     if (distance < detectionRadius && distance > 0) {
       // Calculate movement direction (away from mouse)
@@ -511,7 +435,7 @@ const AnimatedButton = ({ darkMode }) => {
     <div className={`calculator-ui ${darkMode ? 'dark' : 'light'}`}>
       <div className="calculator-header">
         <div className="calculator-title">✨ Useless Calculator ✨</div>
-        <button 
+        <button
           className="calculator-close"
           onClick={async () => {
             await animateCalculator();
@@ -524,7 +448,7 @@ const AnimatedButton = ({ darkMode }) => {
           ×
         </button>
       </div>
-      
+
       <div className="calculator-display">
         <div className="calculator-input">{calculatorValue || '0'}</div>
         <div className="calculator-result">{calculationSteps}</div>
@@ -532,45 +456,137 @@ const AnimatedButton = ({ darkMode }) => {
 
       <div className="calculator-keypad">
         <div className="calculator-row">
-          <button className="calc-btn secondary" onClick={() => handleCalculatorInput('C')}>C</button>
-          <button className="calc-btn secondary" onClick={() => handleCalculatorInput('±')}>±</button>
-          <button className="calc-btn secondary" onClick={() => handleCalculatorInput('%')}>%</button>
-          <button className="calc-btn operator" onClick={() => handleCalculatorInput('÷')}>÷</button>
+          <button
+            className="calc-btn secondary"
+            onClick={() => handleCalculatorInput('C')}
+          >
+            C
+          </button>
+          <button
+            className="calc-btn secondary"
+            onClick={() => handleCalculatorInput('±')}
+          >
+            ±
+          </button>
+          <button
+            className="calc-btn secondary"
+            onClick={() => handleCalculatorInput('%')}
+          >
+            %
+          </button>
+          <button
+            className="calc-btn operator"
+            onClick={() => handleCalculatorInput('÷')}
+          >
+            ÷
+          </button>
         </div>
-        
+
         <div className="calculator-row">
-          <button className="calc-btn" onClick={() => handleCalculatorInput('7')}>7</button>
-          <button className="calc-btn" onClick={() => handleCalculatorInput('8')}>8</button>
-          <button className="calc-btn" onClick={() => handleCalculatorInput('9')}>9</button>
-          <button className="calc-btn operator" onClick={() => handleCalculatorInput('×')}>×</button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('7')}
+          >
+            7
+          </button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('8')}
+          >
+            8
+          </button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('9')}
+          >
+            9
+          </button>
+          <button
+            className="calc-btn operator"
+            onClick={() => handleCalculatorInput('×')}
+          >
+            ×
+          </button>
         </div>
-        
+
         <div className="calculator-row">
-          <button className="calc-btn" onClick={() => handleCalculatorInput('4')}>4</button>
-          <button className="calc-btn" onClick={() => handleCalculatorInput('5')}>5</button>
-          <button className="calc-btn" onClick={() => handleCalculatorInput('6')}>6</button>
-          <button className="calc-btn operator" onClick={() => handleCalculatorInput('-')}>−</button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('4')}
+          >
+            4
+          </button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('5')}
+          >
+            5
+          </button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('6')}
+          >
+            6
+          </button>
+          <button
+            className="calc-btn operator"
+            onClick={() => handleCalculatorInput('-')}
+          >
+            −
+          </button>
         </div>
-        
+
         <div className="calculator-row">
-          <button className="calc-btn" onClick={() => handleCalculatorInput('1')}>1</button>
-          <button className="calc-btn" onClick={() => handleCalculatorInput('2')}>2</button>
-          <button className="calc-btn" onClick={() => handleCalculatorInput('3')}>3</button>
-          <button className="calc-btn operator" onClick={() => handleCalculatorInput('+')}>+</button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('1')}
+          >
+            1
+          </button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('2')}
+          >
+            2
+          </button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('3')}
+          >
+            3
+          </button>
+          <button
+            className="calc-btn operator"
+            onClick={() => handleCalculatorInput('+')}
+          >
+            +
+          </button>
         </div>
-        
+
         <div className="calculator-row">
-          <button className="calc-btn zero" onClick={() => handleCalculatorInput('0')}>0</button>
-          <button className="calc-btn" onClick={() => handleCalculatorInput('.')}>.</button>
-          <button className="calc-btn equals" onClick={() => handleCalculatorInput('=')}>=</button>
+          <button
+            className="calc-btn zero"
+            onClick={() => handleCalculatorInput('0')}
+          >
+            0
+          </button>
+          <button
+            className="calc-btn"
+            onClick={() => handleCalculatorInput('.')}
+          >
+            .
+          </button>
+          <button
+            className="calc-btn equals"
+            onClick={() => handleCalculatorInput('=')}
+          >
+            =
+          </button>
         </div>
-        
+
         {calculationDone && (
           <div className="calculator-actions">
-            <button 
-              className="calc-action-btn"
-              onClick={handleRandomEvent}
-            >
+            <button className="calc-action-btn" onClick={handleRandomEvent}>
               🎲 Next Event
             </button>
           </div>

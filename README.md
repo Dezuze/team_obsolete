@@ -14,7 +14,7 @@ _Just your everyday, totally normal, absolutely not suspicious button. Nothing t
 
 ### Project Description
 
-A completely normal button that definitely won't run away from your cursor, transform into a calculator, or have an existential crisis. It's just a button. Really. Trust us.
+A completely normal button that definitely won't run away from your cursor, transform into a modern calculator, or glitch into alternate dimensions. It's just a button. Really. Trust us.
 
 ### The Problem (that doesn't exist)
 
@@ -28,73 +28,156 @@ We've created a button with personality disorders, trust issues, and a tendency 
 
 ### Technologies Used
 
-- React (for giving buttons existential crises)
-- CSS (for making buttons pretty before they break)
-- JavaScript (for implementing chaos theory)
-- Your Sanity (as a testing framework)
+- **React 18** (for giving buttons existential crises)
+- **Anime.js** (for smooth animations and transitions)
+- **CSS3** (for modern styling and effects)
+- **JavaScript ES6+** (for implementing chaos theory)
+- **Your Sanity** (as a testing framework)
 
-### Implementation
+### Key Features
 
-# Installation
+- **Three Random Events**: Each click triggers one of three unique experiences
+- **Modern Calculator UI**: Complete with light/dark mode support
+- **Destructive Glitch Effects**: Visual chaos with aggressive animations
+- **Viewport-Constrained Runaway**: Button movement stays within screen bounds
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Installation
 
 ```bash
 # Clone this repository (if you dare)
-git clone https://github.com/Dezuze/team_obsolete.git
+git clone https://github.com/Dezuze/useless_project_temp.git
+
 # Enter the danger zone
-cd a-normal-button
+cd useless_project_temp
 
 # Install dependencies (and questionable life choices)
 npm install
 
 # Start the chaos
 npm start
+
+# Build for production (if you're brave enough)
+npm run build
 ```
 
-# Usage Instructions
+## Usage Instructions
 
-1. Click the button
-2. Regret clicking the button
-3. Try to click it again
-4. Question reality
-5. Repeat steps 1-4
+1. Click the "Click Me" button
+2. Experience one of three random events:
+   - **Calculator Mode**: A fully functional useless calculator
+   - **Runaway Button**: Chase the button around your screen
+   - **Glitch Attack**: Watch reality break down
+3. Try to maintain your sanity
+4. Repeat until you question your life choices
 
-### Features (or Symptoms)
+## Features (or Symptoms)
 
-- **Click Me Button**: A completely normal button that totally won't mess with your head
-- **Calculator Mode**: Because sometimes buttons get tired of being just buttons
-- **Glitch Effect**: Not a bug, definitely a feature
-- **Dark Mode**: For when the button is feeling a bit moody
-- **Event Log**: To keep track of all the perfectly normal things happening
-- **Running Away**: Exercise is important, even for buttons
+### 🧮 Calculator Mode
+- **Modern Interface**: Sleek calculator with iOS-style design
+- **Light/Dark Theme**: Automatically adapts to your app's theme
+- **Useless Results**: Generates hilariously wrong answers
+- **No Time Limit**: Calculator stays open until you exit
+- **Smart Button Logic**: Calculate button only appears after entering numbers
 
-### Known "Features"
+### 🏃‍♂️ Runaway Button
+- **Intelligent Evasion**: Button actively avoids your cursor
+- **Viewport Constrained**: Won't escape your screen
+- **Smooth Animations**: Powered by Anime.js
+- **8-Second Duration**: Just long enough to be frustrating
 
-- Button may or may not listen to your clicks
-- Calculator might appear when you least expect it
-- Dark mode might be the button's decision, not yours
+### 💥 Glitch Attack
+- **Destructive Effects**: Violent shaking, color distortion, and strobing
+- **Multiple Animations**: Simultaneous chaos for maximum impact
+- **5-Second Experience**: Brief but memorable
+- **No Auto-Trigger**: Only happens when you click (no random annoyance)
+
+### 🎨 Additional Features
+- **Dark Mode Support**: Button adapts to your theme preference
+- **Smooth Transitions**: Professional animations throughout
+- **Clean Code**: ESLint compliant and well-documented
+- **Mobile Friendly**: Responsive design works on all devices
+
+## Event System
+
+The button randomly selects one of three events on each click:
+
+1. **Calculator Mode** (33% chance)
+   - Opens modern calculator interface
+   - Generates humorous "calculations"
+   - Manual exit required
+
+2. **Runaway Mode** (33% chance)
+   - Button flees from cursor
+   - Viewport-constrained movement
+   - Auto-returns after 8 seconds
+
+3. **Glitch Attack** (33% chance)
+   - Aggressive visual effects
+   - Multiple simultaneous animations
+   - 5-second chaos experience
+
+## Known "Features"
+
+- Button may develop trust issues
+- Calculator might fail basic math (intentionally)
 - Your cursor's self-esteem might take a hit
+- Side effects may include laughter and existential dread
+- No buttons were harmed in the making of this project
+
+## Development Commands
+
+```bash
+# Start development server
+npm start
+
+# Run linting
+npm run lint
+
+# Fix linting issues automatically
+npm run lint:fix
+
+# Build for production
+npm run build
+
+# Run tests
+npm test
+```
+
+## Browser Support
+
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
+- Any modern browser with ES6+ support
 
 ## Team Contributions
 
-- **Wesly Philip Jacob**:
-  - Button Behavior Specialist
-  - Digital Mischief Architect
-  - Glitch Effect Master
-  - Chaos Implementation Lead
-  - Dark Mode Psychologist
-  - Calculator Mode Designer
+**Wesly Philip Jacob**:
+- Button Behavior Specialist
+- Modern Calculator Designer
+- Glitch Effect Master
+- Chaos Implementation Lead
+- Animation Engineer
+- Viewport Constraint Architect
 
-## Project States
+## Project Architecture
 
-1. **Normal State**: As rare as finding a unicorn
-2. **Calculator Mode**: When math anxiety meets UI design
-3. **Glitch State**: The button's way of saying "I'm having an existential crisis"
-4. **Runaway Mode**: The button's cardio routine
+```
+src/
+├── AnimatedButton.js     # Main component with all button logic
+├── AnimatedButton.css    # Styles for button and calculator
+├── App.js               # Main app with dark mode toggle
+├── App.css              # Global app styles
+├── DarkModeToggle.js    # Theme switcher component
+└── BackwardsClock.js    # Bonus backwards clock feature
+```
 
 ## Disclaimer
 
-No buttons were harmed in the making of this project. They're just a bit different.
+No buttons were harmed in the making of this project. They're just having an identity crisis. Side effects may include uncontrollable laughter, questioning reality, and an urge to click things that shouldn't be clicked.
 
 ---
 
-Made with questionable decisions by Team Obsolete at TinkerHub Useless Projects
+Made with questionable decisions and excessive caffeine by **Team Obsolete** at TinkerHub Useless Projects 🚀
