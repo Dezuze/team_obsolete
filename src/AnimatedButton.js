@@ -11,6 +11,7 @@ const AnimatedButton = ({ darkMode }) => {
   const [isCalculator, setIsCalculator] = useState(false);
   const [calculatorValue, setCalculatorValue] = useState('');
   const [calculationSteps, setCalculationSteps] = useState('');
+  const [calculationDone, setCalculationDone] = useState(false);
 
   const buttonRef = useRef(null);
   const containerRef = useRef(null);
@@ -99,9 +100,11 @@ const AnimatedButton = ({ darkMode }) => {
       ];
       const explanation = uselessExplanations[Math.floor(Math.random() * uselessExplanations.length)];
       setCalculationSteps(explanation);
+      setCalculationDone(true); // Show Calculate button after calculation
     } else if (value === 'C') {
       setCalculatorValue('');
       setCalculationSteps('');
+      setCalculationDone(false); // Reset calculation done state
     } else {
       const newValue = value === '*' ? '×' : value === '/' ? '÷' : value;
       setCalculatorValue((prev) => prev + newValue);
@@ -191,6 +194,125 @@ const AnimatedButton = ({ darkMode }) => {
     return mainTimeline.finished;
   };
 
+  const animateDestructiveGlitch = () => {
+    const button = buttonRef.current;
+    if (!button) return;
+
+    // Much more aggressive and chaotic glitch effects
+    const mainTimeline = anime.timeline({
+      duration: 5000,
+      easing: 'steps(10)',
+    });
+
+    // Violent shaking and scaling
+    mainTimeline.add({
+      targets: button,
+      keyframes: [
+        {
+          translateX: -20,
+          translateY: 15,
+          scale: 1.3,
+          rotate: 15,
+          filter: 'hue-rotate(180deg) saturate(300%) contrast(200%)',
+          duration: 50,
+        },
+        {
+          translateX: 25,
+          translateY: -20,
+          scale: 0.7,
+          rotate: -20,
+          filter: 'hue-rotate(-180deg) saturate(500%) invert(1)',
+          duration: 50,
+        },
+        {
+          translateX: -15,
+          translateY: -25,
+          scale: 1.5,
+          rotate: 30,
+          filter: 'hue-rotate(270deg) blur(2px) brightness(300%)',
+          duration: 50,
+        },
+        {
+          translateX: 30,
+          translateY: 20,
+          scale: 0.5,
+          rotate: -45,
+          filter: 'hue-rotate(90deg) sepia(100%) contrast(500%)',
+          duration: 50,
+        },
+        {
+          translateX: 0,
+          translateY: 0,
+          scale: 1,
+          rotate: 0,
+          filter: 'none',
+          duration: 200,
+        },
+      ],
+      loop: 20,
+    });
+
+    // Aggressive color distortion
+    anime({
+      targets: button,
+      keyframes: [
+        {
+          textShadow: '5px 0 #ff0000, -5px 0 #00ff00, 0 5px #0000ff',
+          backgroundColor: '#ff00ff',
+          duration: 100
+        },
+        {
+          textShadow: '-8px 0 #ffff00, 8px 0 #ff00ff, 0 -8px #00ffff',
+          backgroundColor: '#00ff00',
+          duration: 100
+        },
+        {
+          textShadow: '3px 3px #ff0000, -3px -3px #0000ff',
+          backgroundColor: '#ff0000',
+          duration: 100
+        },
+        {
+          textShadow: 'none',
+          backgroundColor: '',
+          duration: 100
+        },
+      ],
+      loop: true,
+      direction: 'alternate',
+      duration: 300,
+    });
+
+    // Rapid opacity strobing
+    anime({
+      targets: button,
+      opacity: [
+        { value: 1, duration: 20 },
+        { value: 0.1, duration: 20 },
+        { value: 1, duration: 20 },
+        { value: 0.3, duration: 20 },
+        { value: 1, duration: 20 },
+        { value: 0.7, duration: 20 },
+        { value: 1, duration: 20 },
+      ],
+      loop: true,
+      easing: 'steps(1)',
+      duration: 200,
+    });
+
+    // Random position jumps
+    anime({
+      targets: button,
+      translateX: () => anime.random(-50, 50),
+      translateY: () => anime.random(-50, 50),
+      duration: 100,
+      loop: true,
+      direction: 'alternate',
+      easing: 'steps(1)',
+    });
+
+    return mainTimeline.finished;
+  };
+
   const animateCalculator = () => {
     return anime({
       targets: buttonRef.current,
@@ -249,6 +371,7 @@ const AnimatedButton = ({ darkMode }) => {
         setIsCalculator(true);
         setCalculatorValue('');
         setCalculationSteps('Ready to calculate! Click Calculate when done! 🧮');
+        setCalculationDone(false); // Reset calculation state
         setIsAnimating(false); // Allow user interaction
         break;
 
@@ -290,22 +413,6 @@ const AnimatedButton = ({ darkMode }) => {
       setIsAnimating(false);
     }
   };
-
-  useEffect(() => {
-    // Randomly trigger glitch effect
-    const glitchInterval = setInterval(() => {
-      if (!isAnimating && !isCalculator && Math.random() < 0.1) { // 10% chance every 8 seconds
-        setIsGlitching(true);
-        animateGlitch().then(() => {
-          setTimeout(() => {
-            setIsGlitching(false);
-          }, 2000);
-        });
-      }
-    }, 8000);
-
-    return () => clearInterval(glitchInterval);
-  }, [isAnimating, isCalculator]);
 
   // Clean runaway functionality - viewport constrained
   const initializeRunawayMode = () => {
@@ -401,62 +508,73 @@ const AnimatedButton = ({ darkMode }) => {
   };
 
   const renderCalculator = () => (
-    <div className="calculator-ui">
-      <div className="calculator-display">
-        <div className="calculator-value">{calculatorValue || '0'}</div>
-        <div className="calculation-steps">{calculationSteps}</div>
-      </div>
-      <div className="calculator-controls">
-        <button
-          className="calc-control-button next-event"
-          onClick={handleRandomEvent}
-          disabled={isAnimating}
-        >
-          Next Event
-        </button>
-        <button
-          className="calc-control-button calculate"
-          onClick={() => {
-            if (calculatorValue) {
-              handleCalculatorInput('=');
-            }
+    <div className={`calculator-ui ${darkMode ? 'dark' : 'light'}`}>
+      <div className="calculator-header">
+        <div className="calculator-title">✨ Useless Calculator ✨</div>
+        <button 
+          className="calculator-close"
+          onClick={async () => {
+            await animateCalculator();
+            setIsCalculator(false);
+            setCalculatorValue('');
+            setCalculationSteps('');
+            setCalculationDone(false);
           }}
-          disabled={!calculatorValue}
         >
-          Calculate
+          ×
         </button>
       </div>
-      <div
-        className="calculator-buttons"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '10px',
-        }}
-      >
-        {[
-          ['7', '8', '9', '+'],
-          ['4', '5', '6', '-'],
-          ['1', '2', '3', '×'],
-          ['C', '0', '', '÷'],
-        ]
-          .flat()
-          .map((btn) => (
-            <button
-              key={btn}
-              className="calc-button"
-              onClick={() => handleCalculatorInput(btn)}
-              style={{
-                backgroundColor: ['C', '='].includes(btn)
-                  ? 'rgba(255, 255, 255, 0.15)'
-                  : ['+', '-', '×', '÷'].includes(btn)
-                    ? 'rgba(52, 152, 219, 0.3)'
-                    : undefined,
-              }}
+      
+      <div className="calculator-display">
+        <div className="calculator-input">{calculatorValue || '0'}</div>
+        <div className="calculator-result">{calculationSteps}</div>
+      </div>
+
+      <div className="calculator-keypad">
+        <div className="calculator-row">
+          <button className="calc-btn secondary" onClick={() => handleCalculatorInput('C')}>C</button>
+          <button className="calc-btn secondary" onClick={() => handleCalculatorInput('±')}>±</button>
+          <button className="calc-btn secondary" onClick={() => handleCalculatorInput('%')}>%</button>
+          <button className="calc-btn operator" onClick={() => handleCalculatorInput('÷')}>÷</button>
+        </div>
+        
+        <div className="calculator-row">
+          <button className="calc-btn" onClick={() => handleCalculatorInput('7')}>7</button>
+          <button className="calc-btn" onClick={() => handleCalculatorInput('8')}>8</button>
+          <button className="calc-btn" onClick={() => handleCalculatorInput('9')}>9</button>
+          <button className="calc-btn operator" onClick={() => handleCalculatorInput('×')}>×</button>
+        </div>
+        
+        <div className="calculator-row">
+          <button className="calc-btn" onClick={() => handleCalculatorInput('4')}>4</button>
+          <button className="calc-btn" onClick={() => handleCalculatorInput('5')}>5</button>
+          <button className="calc-btn" onClick={() => handleCalculatorInput('6')}>6</button>
+          <button className="calc-btn operator" onClick={() => handleCalculatorInput('-')}>−</button>
+        </div>
+        
+        <div className="calculator-row">
+          <button className="calc-btn" onClick={() => handleCalculatorInput('1')}>1</button>
+          <button className="calc-btn" onClick={() => handleCalculatorInput('2')}>2</button>
+          <button className="calc-btn" onClick={() => handleCalculatorInput('3')}>3</button>
+          <button className="calc-btn operator" onClick={() => handleCalculatorInput('+')}>+</button>
+        </div>
+        
+        <div className="calculator-row">
+          <button className="calc-btn zero" onClick={() => handleCalculatorInput('0')}>0</button>
+          <button className="calc-btn" onClick={() => handleCalculatorInput('.')}>.</button>
+          <button className="calc-btn equals" onClick={() => handleCalculatorInput('=')}>=</button>
+        </div>
+        
+        {calculationDone && (
+          <div className="calculator-actions">
+            <button 
+              className="calc-action-btn"
+              onClick={handleRandomEvent}
             >
-              {btn}
+              🎲 Next Event
             </button>
-          ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -468,9 +586,7 @@ const AnimatedButton = ({ darkMode }) => {
           ref={buttonRef}
           className={`futuristic-button ${isAnimating ? 'active-effect' : ''} ${
             isAnimating && !isCalculator ? 'runaway' : ''
-          } ${isGlitching ? 'glitch' : ''} ${
-            isCalculator ? 'calculator-mode' : ''
-          }`}
+          } ${isGlitching ? 'glitch' : ''}`}
           onClick={isCalculator ? undefined : handleRandomEvent}
           disabled={isAnimating && !isCalculator}
         >

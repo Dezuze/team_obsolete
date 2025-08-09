@@ -1,5 +1,7 @@
 # A "NORMAL" BUTTON
 
+![Project Header](./public/pic.png)
+
 _Just your everyday, totally normal, absolutely not suspicious button. Nothing to see here, move along..._
 
 ## Basic Details
