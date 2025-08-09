@@ -3,22 +3,47 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: calc(100vh - 120px);
+  max-height: calc(100vh - 120px);
   padding: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
 .futuristic-button {
   position: relative;
-  padding: 15px 30px;
+  padding: 20px 40px;
   font-size: 18px;
   color: #fff;
-  background: linear-gradient(45deg, #4a90e2, #8e44ad);
+  background: linear-gradient(45deg, #00d2ff, #3a7bd5);
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.futuristic-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #00d2ff, #3a7bd5, #00d2ff);
+  background-size: 400% 400%;
+  animation: borderGlow 3s ease infinite;
+  z-index: -1;
+  border-radius: 32px;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .futuristic-button:hover {
@@ -56,47 +81,124 @@
 }
 
 .event-log {
-  margin-top: 20px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 15px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
   max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 90%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.event-log h4 {
+  color: white;
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
 }
 
 .event-item {
-  margin: 5px 0;
+  margin: 8px 0;
   font-size: 14px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 /* Calculator Mode Styles */
 .calculator-mode {
-  width: 240px;
-  height: 320px;
-  background: #2c3e50;
-  border-radius: 10px;
-  padding: 10px;
+  width: 300px;
+  max-width: 90vw;
+  background: rgba(44, 62, 80, 0.95);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .calculator-ui {
   width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .calculator-display {
   width: 100%;
-  height: 60px;
-  background: #34495e;
+  background: rgba(52, 73, 94, 0.8);
   margin-bottom: 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 10px;
-  font-size: 24px;
+  border-radius: 15px;
+  padding: 15px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.calculation-value {
+  font-size: 32px;
+  text-align: right;
+  margin-bottom: 5px;
+  font-family: 'Monaco', monospace;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.calculation-steps {
+  font-size: 14px;
+  color: #95a5a6;
+  text-align: right;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.calculator-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calc-button {
+  background: rgba(52, 152, 219, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.calc-button:hover {
+  background: rgba(52, 152, 219, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.calc-button:active {
+  transform: translateY(0);
+}
+
+.calc-button[value="="] {
+  background: rgba(46, 204, 113, 0.4);
+}
+
+.calc-button[value="C"] {
+  background: rgba(231, 76, 60, 0.4);
 }
 
 .calculator-buttons {
@@ -122,7 +224,33 @@
 
 /* Glitch Effect */
 .glitch {
-  animation: glitch 0.5s infinite;
+  animation: glitch 0.3s infinite;
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: 'Click Me';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glitch::before {
+  text-shadow: 2px 0 #ff00ff;
+  animation: glitch-anim-1 0.3s infinite;
+}
+
+.glitch::after {
+  text-shadow: -2px 0 #00ffff;
+  animation: glitch-anim-2 0.3s infinite;
 }
 
 @keyframes glitch {
@@ -130,23 +258,52 @@
     transform: translate(0);
   }
   20% {
-    transform: translate(-5px, 5px);
+    transform: translate(-2px, 2px);
   }
   40% {
-    transform: translate(-5px, -5px);
+    transform: translate(-2px, -2px);
   }
   60% {
-    transform: translate(5px, 5px);
+    transform: translate(2px, 2px);
   }
   80% {
-    transform: translate(5px, -5px);
+    transform: translate(2px, -2px);
   }
   100% {
     transform: translate(0);
   }
 }
 
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); }
+  20% { clip-path: inset(60% 0 40% 0); }
+  40% { clip-path: inset(40% 0 60% 0); }
+  60% { clip-path: inset(80% 0 20% 0); }
+  80% { clip-path: inset(10% 0 90% 0); }
+  100% { clip-path: inset(20% 0 80% 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(80% 0 20% 0); }
+  20% { clip-path: inset(40% 0 60% 0); }
+  40% { clip-path: inset(60% 0 40% 0); }
+  60% { clip-path: inset(20% 0 80% 0); }
+  80% { clip-path: inset(90% 0 10% 0); }
+  100% { clip-path: inset(80% 0 20% 0); }
+}
+
 /* Runaway Button */
 .runaway {
-  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active Effect */
+.active-effect {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+  50% { box-shadow: 0 8px 25px rgba(0, 210, 255, 0.4); }
+  100% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
 }

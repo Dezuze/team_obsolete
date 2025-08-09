@@ -8,6 +8,7 @@ const AnimatedButton = () => {
   const [isGlitching, setIsGlitching] = useState(false);
   const [isCalculator, setIsCalculator] = useState(false);
   const [calculatorValue, setCalculatorValue] = useState('');
+  const [calculationSteps, setCalculationSteps] = useState('');
 
   const buttonRef = useRef(null);
   const containerRef = useRef(null);
@@ -15,14 +16,35 @@ const AnimatedButton = () => {
   const handleCalculatorInput = (value) => {
     if (value === '=') {
       try {
-        setCalculatorValue(eval(calculatorValue).toString());
+        // Parse the expression
+        const expression = calculatorValue
+          .replace(/×/g, '*')
+          .replace(/÷/g, '/');
+        const result = eval(expression);
+
+        // Create step-by-step explanation
+        const numbers = calculatorValue.match(/\d+/g);
+        const operator = calculatorValue.match(/[+\-×÷]/)?.[0];
+
+        if (numbers && numbers.length === 2 && operator) {
+          const explanation = `Sum of ${numbers[0]} ${operator} ${numbers[1]} = ${result}`;
+          setCalculationSteps(explanation);
+          setCalculatorValue(result.toString());
+        } else {
+          setCalculatorValue(result.toString());
+          setCalculationSteps('');
+        }
       } catch (error) {
         setCalculatorValue('Error');
+        setCalculationSteps('Invalid expression');
       }
     } else if (value === 'C') {
       setCalculatorValue('');
+      setCalculationSteps('');
     } else {
-      setCalculatorValue((prev) => prev + value);
+      const newValue = value === '*' ? '×' : value === '/' ? '÷' : value;
+      setCalculatorValue((prev) => prev + newValue);
+      setCalculationSteps('');
     }
   };
 
@@ -147,7 +169,12 @@ const AnimatedButton = () => {
 
   const renderCalculator = () => (
     <div className="calculator-ui">
-      <div className="calculator-display">{calculatorValue}</div>
+      <div className="calculator-display">
+        <div className="calculation-value">{calculatorValue}</div>
+        {calculationSteps && (
+          <div className="calculation-steps">{calculationSteps}</div>
+        )}
+      </div>
       <div className="calculator-buttons">
         {[
           '7',
@@ -161,11 +188,11 @@ const AnimatedButton = () => {
           '1',
           '2',
           '3',
-          '*',
+          '×',
           'C',
           '0',
           '=',
-          '/',
+          '÷',
         ].map((btn) => (
           <button
             key={btn}
@@ -194,10 +221,7 @@ const AnimatedButton = () => {
               isAnimating && !isCalculator
                 ? `translate(${buttonPosition.x}px, ${buttonPosition.y}px)`
                 : 'none',
-            position:
-              isAnimating && !isCalculator
-                ? 'relative'
-                : 'static',
+            position: isAnimating && !isCalculator ? 'relative' : 'static',
             transition:
               isAnimating && !isCalculator
                 ? 'transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)'

@@ -11,6 +11,19 @@ function App() {
     setDarkMode(!darkMode);
     setTimeout(() => setThemeTransition(false), 500);
   };
+      </div>om 'react';
+import AnimatedButton from './AnimatedButton';
+import './App.css';
+
+function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [themeTransition, setThemeTransition] = useState(false);
+
+  const toggleDarkMode = () => {
+    setThemeTransition(true);
+    setDarkMode(!darkMode);
+    setTimeout(() => setThemeTransition(false), 500);
+  };
 
   useEffect(() => {
     // Check system preference for dark mode
@@ -34,7 +47,6 @@ function App() {
         >
           <div className="theme-toggle-slider">
             <span className="theme-icon">{darkMode ? '🌙' : '☀️'}</span>
-            <span className="theme-text">{darkMode ? 'Dark' : 'Light'}</span>
           </div>
         </button>
       </div>
