@@ -1,0 +1,73 @@
+import React, { useState, useEffect, useRef } from "react";
+import "./AnimatedButton.css";
+
+const AnimatedButton = () => {
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
+  const [isCameraMode, setIsCameraMode] = useState(false);
+  const [isFlashing, setIsFlashing] = useState(false);
+  const buttonRef = useRef(null);
+  const containerRef = useRef(null);
+
+  const handleCameraClick = () => {
+    setIsFlashing(true);
+    
+    // Play camera shutter sound
+    const shutterSound = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU');
+    shutterSound.play();
+
+    // Flash effect
+    setTimeout(() => {
+      setIsFlashing(false);
+      
+      // Download monkey image
+      const link = document.createElement('a');
+      link.href = 'https://raw.githubusercontent.com/user-attachments/assets/smiling-monkey.jpg';
+      link.download = 'smiling-monkey.jpg';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Reset camera mode after capture
+      setTimeout(() => {
+        setIsCameraMode(false);
+        setIsAnimating(false);
+      }, 1000);
+    }, 500);
+  };
+
+  const handleClick = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    // Directly trigger camera mode for testing
+    setIsCameraMode(true);
+  };
+
+  return (
+    <>
+      <div className="button-container" ref={containerRef}>
+        <button
+          ref={buttonRef}
+          className={`futuristic-button ${isAnimating ? 'active-effect' : ''} ${
+            isCameraMode ? 'camera-mode' : ''
+          }`}
+          onClick={isCameraMode ? handleCameraClick : handleClick}
+          disabled={isAnimating && !isCameraMode}
+        >
+          <span className="button-text">Click Me</span>
+          <div className="button-glow"></div>
+          <div className="button-particles"></div>
+        </button>
+      </div>
+
+      {isCameraMode && (
+        <div className="camera-ui">
+          <div className="camera-frame"></div>
+          <div className={`camera-flash ${isFlashing ? 'flash' : ''}`}></div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default AnimatedButton;
